@@ -1,0 +1,11 @@
+{
+    "on_email": [
+        "New email ahoy!",
+        "*Squack* Pirates Approaching! *Squack*"
+    ],
+
+    "on_read": [
+        "To Davy Jones' Locker!",
+        "Walk the Plank!"
+    ]
+}
