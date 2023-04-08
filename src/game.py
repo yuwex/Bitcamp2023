@@ -96,7 +96,7 @@ class Game:
         if self.badguy.x != self.charPos + 40:
             self.badguy.x -= 1
 
-        #if email is read then the bad guy goes away
+        #if email is read then the bad guy goes away and score increases
 
         pygame.display.update()  # updates the screen
 
