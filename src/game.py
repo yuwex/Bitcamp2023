@@ -88,9 +88,8 @@ class Game:
     # main loop for the game
     def game_loop(self):
         #start of the display
-        # self.display.fill(WHITE)
         self.display.blit(self.image, (0, 0))
-        self.draw_text("src/assets/Treasuremap.ttf", 70, f"Score  {self.score}", 0, 0, BLACK)
+        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
