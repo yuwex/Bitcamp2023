@@ -8,13 +8,15 @@ class Character:
     def announce_unread(self):
         numUnread = email_watcher.Watcher.get_unread_count()
         if (numUnread <= 0):
-          print("You have x unread emails!")
+          return "caughtup"
         elif (numUnread == 1):
-          print("You have an unread email!")
+          return "oneunread"
         elif (numUnread > 1):
-          print("You have " + numUnread +  " unread emails!")
+          return "oneunread"    
     def get_score(self):
         #score increases when user interacts with email (read, delete, archive, reply, forward, etc.)
         #for read emails
         numRead = email_watcher.Watcher.update()
         level += numRead
+
+        
