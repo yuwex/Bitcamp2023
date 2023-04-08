@@ -7,15 +7,16 @@ from email_watcher import Watcher
 class GameManager:
 
     game: Game
+    watcher: Watcher
 
-    def __init__(self, game: Game, interval = 5):
+    def __init__(self, game: Game, watcher: Watcher, interval = 5):
         self.game = game
         self.interval = interval
 
         self.running = False
         self.update_thread = None
 
-        self.watcher = Watcher()
+        self.watcher = watcher
     
     def update(self):
         while self.running:
@@ -37,8 +38,11 @@ def main():
 if __name__ == "__main__":
     print("Started")
 
-    gm = GameManager(Game())
-    gm.run()
-    print("Started Run, Running Main")
+    watcher = Watcher()
+    count = watcher.get_unread_count()
+    game = Game(count)
 
-    main()
+    gm = GameManager(game, watcher)
+    gm.run()
+
+    game.start()

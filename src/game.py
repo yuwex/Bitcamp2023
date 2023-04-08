@@ -19,13 +19,15 @@ SCREEN_HEIGHT = 400
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, unread_messages: int):
         pygame.init()
         pygame.display.set_caption('Email Pirates')
 
         self.display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-        self.start()
+        # Initialize unread messages
+        self.unread_messages = unread_messages
+        self.read_messages = 0
     
     def start(self):
         # Call before_start before starting
@@ -47,13 +49,13 @@ class Game:
         self.score = 1000
 
         #character
-        self.imageChar = pygame.image.load(os.path.join('pirate8.png'))
+        self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
         self.imageChar = pygame.transform.scale(self.imageChar, new_size)
         self.charPos = 120
 
         #bad guy 1
-        self.imageBadGuy = pygame.image.load(os.path.join('protagonist_green.png'))
+        self.imageBadGuy = pygame.image.load(os.path.join('src/assets/protagonist_green.png'))
         new_size = (self.imageBadGuy.get_width() * 9, self.imageBadGuy.get_height() * 9)
         self.imageBadGuy = pygame.transform.scale(self.imageBadGuy, new_size)
         self.badGuyPosLR = 600
@@ -63,7 +65,8 @@ class Game:
     emails since the last time the GameManager was polled
     """
     def update(self, read: int, unread: int):
-        pass
+        self.read_messages = read
+        self.unread_messages = unread
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
@@ -83,7 +86,7 @@ class Game:
     def game_loop(self):
         #start of the display
         self.display.fill(WHITE)
-        self.draw_text("Treasuremap.ttf", 70, "Score     0", 0, 0, BLACK)
+        self.draw_text("src/assets/Treasuremap.ttf", 70, f"Score  {self.score}", 0, 0, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
@@ -92,8 +95,10 @@ class Game:
             self.badGuyPosLR -= 1
             self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
 
-        pygame.display.update()  # updates the screen
+        # Draw text with score data
 
+        self.draw_text("src/assets/Treasuremap.ttf", 30, f"Enemies  {self.unread_messages}", 0, 80, BLACK)
+        
         # Update Screen
         pygame.display.update() 
 
@@ -106,5 +111,5 @@ class Game:
         time.sleep(0.01)
 
 if __name__ == '__main__':
-    game = Game()
+    game = Game(5)
     game.start()
