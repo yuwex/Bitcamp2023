@@ -3,13 +3,17 @@ A class for handling game mechanics
 """
 import pygame
 import time
+import os
 
+#colors for the animation
 BLACK = (0, 0, 0)
 YELLOW = (255, 255, 102)
 RED = (213, 50, 80)
 GREEN = (0, 255, 0)
 BLUE = (50, 153, 213)
+WHITE = (255,255,255)
 
+#dimensions for screen
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 400
 
@@ -37,6 +41,18 @@ class Game:
         self.color = RED
         self.count = 0
 
+        #character
+        self.imageChar = pygame.image.load(os.path.join('pirate8.png'))
+        new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
+        self.imageChar = pygame.transform.scale(self.imageChar, new_size)
+        self.charPos = 120
+
+        #bad guy 1
+        self.imageBadGuy = pygame.image.load(os.path.join('protagonist_green.png'))
+        new_size = (self.imageBadGuy.get_width() * 9, self.imageBadGuy.get_height() * 9)
+        self.imageBadGuy = pygame.transform.scale(self.imageBadGuy, new_size)
+        self.badGuyPosLR = 550
+
     """
     Handles a game update with the number of read and unread
     emails since the last time the GameManager was polled
@@ -54,19 +70,16 @@ class Game:
 
     # main loop for the game
     def game_loop(self):
-        self.display.fill(BLACK)
-        
-        self.draw_text("src/Treasuremap.ttf", 30, "Score     0", 0, 0, YELLOW)
-        
-        self.draw_rect(YELLOW, 100, 200)
-        self.draw_rect(RED, self.left, 100)
-        self.left += 1
-        # restarts the background
+        #start of the display
+        self.display.fill(WHITE)
+        self.draw_text("Treasuremap.ttf", 70, "Score     0", 0, 0, BLACK)
+        self.display.blit(self.imageChar, (30, 250))
 
-        print(self.left)
-
-        if self.left > 600:
-            self.left = 0
+        #if an email comes in, spawn a new bad guy
+        self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
+        if self.badGuyPosLR != self.charPos + 40:
+            self.badGuyPosLR -= 1
+            self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
 
         pygame.display.update()  # updates the screen
 
