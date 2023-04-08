@@ -61,7 +61,7 @@ class Game:
         self.badGuyPosLR = 600
 
         #landscape
-        self.image = pygame.image.load(os.path.join('landscape.jpg'))
+        self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
 
     """
     Handles a game update with the number of read and unread
