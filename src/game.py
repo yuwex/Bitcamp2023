@@ -46,6 +46,7 @@ class Game:
         self.left = 590
         self.color = RED
         self.score = 0
+        self.enemies = []
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -93,6 +94,8 @@ class Game:
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
+        # for x in self.unread_messages:
+            # self.enemies.append(#new enemy)
         self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
         if self.badGuyPosLR != self.charPos + 40:
             self.badGuyPosLR -= 1
