@@ -15,7 +15,7 @@ red = (213,50,80)
 green = (0,255,0)
 blue =(50,153,213)
 #style for the game screen
-scoreStyle = pygame.font.SysFont('comicsans', 35)
+scoreStyle = pygame.font.SysFont('Treasuremap.ttf', 35)
 pygame.display.set_caption('Email Pirates')
 
 #displaying the score
