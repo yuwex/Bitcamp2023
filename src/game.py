@@ -89,7 +89,7 @@ class Game:
         #start of the display
         self.display.blit(self.image, (0, 0))
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
-        self.draw_text("src/assets/Treasuremap.ttf", 40, f"Enemies  {self.unread_messages}", 0, 70, BLACK)
+        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
