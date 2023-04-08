@@ -1,5 +1,5 @@
-credentials.json
-token.json
+src/client_secret.json
+src/gmail_token.json
 
 ### Python
 # Byte-compiled / optimized / DLL files

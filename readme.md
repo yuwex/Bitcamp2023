@@ -2,9 +2,7 @@
 
 Using
 ```
-google-api-python-client
-google-auth-httplib2
-google-auth-oauthlib
+simplegmail
 ```
 
 (Install using pip)
@@ -13,3 +11,5 @@ Look [here](https://developers.google.com/gmail/api/quickstart/python) for a bas
 Peepeepoopoo
 
 Python Version: 3.11.x
+
+Setup
