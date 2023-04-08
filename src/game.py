@@ -67,8 +67,20 @@ class Game:
     emails since the last time the GameManager was polled
     """
     def update(self, read: int, unread: int):
+        old_unread = self.unread_messages
+
         self.read_messages = read
         self.unread_messages = unread
+        
+        self.kill_enemies(read)
+        self.new_enemies(old_unread - read + self.unread_messages)
+
+    def kill_enemies(self, count: int):
+        pass
+    
+    def new_enemies(self, count: int):
+        pass
+
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
