@@ -1,7 +1,7 @@
 {
     "on_email": [
         "New email ahoy!",
-        "*Squack* Pirates Approaching! *Squack*"
+        "*Squawk* Pirates Approaching! *Squawk*"
     ],
 
     "on_read": [
@@ -19,11 +19,25 @@
     ],
 
     "on_buy_owned": [
-        "You already own this item sailor! Try and buy something else..."
+        "Yo ho ho! You already own this item sailor! Try and buy something else..."
     ],
 
     "on_sell_success": [
         "Sold! You parted with {item} in exchange for {cost} doubloons!",
         "Yarr Harr! Thanks for the {item}. Here's {cost} doubloons"
+    ],
+    "on_all_emails_read": [
+        "Blimey! You've read all your emails!",
+        "Raise the jolly roger, you have no emails to read!"
     ]
+    ,
+    "on_one_unread": [
+        "Arrr, you have one email to read!",
+        "Aye me hearty! You have one email left to read!"
+    ],
+    "on_multiple_unread": [
+    "Arrr, you have {unread emails count} unread emails!",
+    "Aye me hearty! You have {unread emails count} email left to read!"
+    ]
+    
 }
