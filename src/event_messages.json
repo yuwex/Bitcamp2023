@@ -7,5 +7,23 @@
     "on_read": [
         "To Davy Jones' Locker!",
         "Walk the Plank!"
+    ],
+
+    "on_buy_success": [
+        "You now own {item}!\n It costs {upgradeCost} doubloonss to upgrade this item!",
+        "Yarr Harr! Here's my trusty {item}. Only {upgradeCost} doubloons to make it better!"
+    ],
+
+    "on_buy_expensive": [
+        "Arrrr!! You don't have enough doubloons for this item!\nYou need {cost} doubloons!"
+    ],
+
+    "on_buy_owned": [
+        "You already own this item sailor! Try and buy something else..."
+    ],
+
+    "on_sell_success": [
+        "Sold! You parted with {item} in exchange for {cost} doubloons!",
+        "Yarr Harr! Thanks for the {item}. Here's {cost} doubloons"
     ]
 }
