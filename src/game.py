@@ -93,18 +93,6 @@ class Game:
             self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
 
         pygame.display.update()  # updates the screen
-        self.display.fill(BLACK)
-        
-        # Draw text with score data
-        self.draw_text("src/Treasuremap.ttf", 30, f"Score {self.score}", 0, 0, YELLOW)
-        
-        # Draw moving red rectangle
-        self.draw_rect(RED, self.left, 100)
-        self.left += 1
-
-        # Loop red rectangle at end
-        if self.left > 600:
-            self.left = 0
 
         # Update Screen
         pygame.display.update() 
