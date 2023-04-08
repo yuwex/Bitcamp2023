@@ -47,19 +47,19 @@ class Game:
         self.score = 1000
 
         #character
-        self.imageChar = pygame.image.load(os.path.join('pirate8.png'))
+        self.imageChar = pygame.image.load(os.path.join('src/Assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
         self.imageChar = pygame.transform.scale(self.imageChar, new_size)
         self.charPos = 120
 
         #bad guy 1
-        self.imageBadGuy = pygame.image.load(os.path.join('protagonist_green.png'))
+        self.imageBadGuy = pygame.image.load(os.path.join('src/Assets/protagonist_green.png'))
         new_size = (self.imageBadGuy.get_width() * 9, self.imageBadGuy.get_height() * 9)
         self.imageBadGuy = pygame.transform.scale(self.imageBadGuy, new_size)
         self.badGuyPosLR = 600
 
         #landscape
-        self.image = pygame.image.load(os.path.join('landscape.jpg'))
+        self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
 
     """
     Handles a game update with the number of read and unread
@@ -87,7 +87,7 @@ class Game:
         #start of the display
         # self.display.fill(WHITE)
         self.display.blit(self.image, (0, 0))
-        self.draw_text("Treasuremap.ttf", 70, "Score     0", 0, 0, BLACK)
+        self.draw_text("src/Assets/Treasuremap.ttf", 70, "Score     0", 0, 0, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
