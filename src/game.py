@@ -98,7 +98,7 @@ class Game:
             self.badGuyPosLR -= 1
             self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
 
-        #if email is read then the bad guy goes away
+        #if email is read then the bad guy goes away and score increases
 
         pygame.display.update()  # updates the screen
 
