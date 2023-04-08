@@ -60,6 +60,9 @@ class Game:
         self.imageBadGuy = pygame.transform.scale(self.imageBadGuy, new_size)
         self.badGuyPosLR = 600
 
+        #landscape
+        self.image = pygame.image.load(os.path.join('landscape.jpg'))
+
     """
     Handles a game update with the number of read and unread
     emails since the last time the GameManager was polled
@@ -85,7 +88,8 @@ class Game:
     # main loop for the game
     def game_loop(self):
         #start of the display
-        self.display.fill(WHITE)
+        # self.display.fill(WHITE)
+        self.display.blit(self.image, (0, 0))
         self.draw_text("src/assets/Treasuremap.ttf", 70, f"Score  {self.score}", 0, 0, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
@@ -95,10 +99,10 @@ class Game:
             self.badGuyPosLR -= 1
             self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
 
-        # Draw text with score data
+        #if email is read then the bad guy goes away
 
-        self.draw_text("src/assets/Treasuremap.ttf", 30, f"Enemies  {self.unread_messages}", 0, 80, BLACK)
-        
+        pygame.display.update()  # updates the screen
+
         # Update Screen
         pygame.display.update() 
 
