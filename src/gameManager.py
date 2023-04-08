@@ -21,31 +21,24 @@ class GameManager:
         while self.running:
             read = self.watcher.update()
             unread = self.watcher.get_unread_count()
-            game.update(read, unread)
+            self.game.update(read, unread)
             sleep(self.interval)
 
     def run(self):
         self.running = True
         self.update_thread = Thread(target = self.update, daemon=True)
-
-
-INTERVAL = 5
-_running = True
-
-def update_emails(game: Game):
-    while(_running):
-        game.update()
-        sleep(INTERVAL)
+        self.update_thread.start()
 
 def main():
     while(True):
-        print("hi")
+        print("Running")
         sleep(1)
 
 if __name__ == "__main__":
-    game = Game()
+    print("Started")
 
-    t = Thread(target = update_emails, args=(game,))
-    t.start()
+    gm = GameManager(Game())
+    gm.run()
+    print("Started Run, Running Main")
 
     main()
