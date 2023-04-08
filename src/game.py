@@ -4,6 +4,7 @@ A class for handling game mechanics
 import pygame
 import time
 import os
+from badguy import Badguy
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -55,11 +56,8 @@ class Game:
         self.charPos = 120
 
         #bad guy 1
-        self.imageBadGuy = pygame.image.load(os.path.join('src/assets/protagonist_green.png'))
-        new_size = (self.imageBadGuy.get_width() * 9, self.imageBadGuy.get_height() * 9)
-        self.imageBadGuy = pygame.transform.scale(self.imageBadGuy, new_size)
-        self.badGuyPosLR = 600
-
+        self.badguy = Badguy('src/assets/protagonist_green.png')
+        
         #landscape
         self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
 
