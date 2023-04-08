@@ -4,6 +4,7 @@ A class for handling game mechanics
 import pygame
 import time
 import os
+from badguy import Badguy
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -46,6 +47,7 @@ class Game:
         self.left = 590
         self.color = RED
         self.score = 0
+        self.enemies = []
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -54,11 +56,8 @@ class Game:
         self.charPos = 120
 
         #bad guy 1
-        self.imageBadGuy = pygame.image.load(os.path.join('src/assets/protagonist_green.png'))
-        new_size = (self.imageBadGuy.get_width() * 9, self.imageBadGuy.get_height() * 9)
-        self.imageBadGuy = pygame.transform.scale(self.imageBadGuy, new_size)
-        self.badGuyPosLR = 600
-
+        self.badguy = Badguy('src/assets/protagonist_green.png')
+        
         #landscape
         self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
 
@@ -99,19 +98,20 @@ class Game:
     # main loop for the game
     def game_loop(self):
         #start of the display
-        # self.display.fill(WHITE)
         self.display.blit(self.image, (0, 0))
-        self.draw_text("src/assets/Treasuremap.ttf", 70, f"Score  {self.score}", 0, 0, BLACK)
-        self.draw_text("src/assets/Treasuremap.ttf", 40, f"Enemies  {self.unread_messages}", 0, 70, BLACK)
+        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
+        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
+        # for x in self.unread_messages:
+            # self.enemies.append(#new enemy)
         self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
         if self.badGuyPosLR != self.charPos + 40:
             self.badGuyPosLR -= 1
             self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
 
-        #if email is read then the bad guy goes away
+        #if email is read then the bad guy goes away and score increases
 
         pygame.display.update()  # updates the screen
 
