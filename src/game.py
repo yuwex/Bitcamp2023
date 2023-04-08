@@ -45,8 +45,7 @@ class Game:
         # Define all variables here
         self.left = 590
         self.color = RED
-        self.count = 0
-        self.score = 1000
+        self.score = 0
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -91,6 +90,7 @@ class Game:
         # self.display.fill(WHITE)
         self.display.blit(self.image, (0, 0))
         self.draw_text("src/assets/Treasuremap.ttf", 70, f"Score  {self.score}", 0, 0, BLACK)
+        self.draw_text("src/assets/Treasuremap.ttf", 40, f"Enemies  {self.unread_messages}", 0, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
