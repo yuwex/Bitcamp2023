@@ -36,6 +36,7 @@ class Game:
         self.left = 590
         self.color = RED
         self.count = 0
+        self.score = 1000
 
     """
     Handles a game update with the number of read and unread
@@ -56,14 +57,12 @@ class Game:
     def game_loop(self):
         self.display.fill(BLACK)
         
-        self.draw_text("src/Treasuremap.ttf", 30, "Score     0", 0, 0, YELLOW)
+        self.draw_text("src/Treasuremap.ttf", 30, f"Score {self.score}", 0, 0, YELLOW)
         
         self.draw_rect(YELLOW, 100, 200)
         self.draw_rect(RED, self.left, 100)
         self.left += 1
         # restarts the background
-
-        print(self.left)
 
         if self.left > 600:
             self.left = 0
