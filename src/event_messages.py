@@ -15,11 +15,12 @@ class EventMessages:
             self.on_buy_expensive: list[str] = data['on_buy_expensive']
             self.on_buy_owned: list[str] = data['on_buy_owned']
             self.on_sell_success: list[str] = data['on_sell_success']
+            
+            # character class messages
+            self.on_multiple_unread: list[str] = data['on_multiple_unread']
             self.on_one_unread: list[str] = data['on_one_unread']
             self.on_all_emails_read: list[str] = data['on_all_emails_read']
             self.on_one_unread: list[str] = data['on_one_unread']
-            self.on_multiple_unread: list[str] = data['on_multiple_unread']
-
 
 
             
@@ -47,6 +48,7 @@ class EventMessages:
         return random.choice(self.on_one_unread)
     def multiple_unread(self) -> str:
         return random.choice(self.on_multiple_unread)
+   
 
 if __name__ == "__main__":
     em = EventMessages("src/event_messages.json")

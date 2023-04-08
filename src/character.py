@@ -4,7 +4,7 @@ class Character:
     level: int
     name: str
     def announce_email(self):
-        print("You have a new email!")
+        return "email_announced"
     def announce_unread(self):
         numUnread = email_watcher.Watcher.get_unread_count()
         if (numUnread <= 0):
