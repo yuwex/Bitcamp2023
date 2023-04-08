@@ -3,6 +3,8 @@ src/gmail_token.json
 client_secret.json
 gmail_token.json
 
+.DS_store
+
 ### Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
