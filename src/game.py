@@ -56,7 +56,7 @@ class Game:
         self.charPos = 120
 
         #bad guy 1
-        self.badguy = Badguy('src/assets/protagonist_green.png')
+        self.badguy1 = Badguy('src/assets/protagonist_green.png')
         
         #landscape
         self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
@@ -93,11 +93,11 @@ class Game:
 
         #if an email comes in, spawn a new bad guy
         # for x in self.unread_messages:
-            # self.enemies.append(#new enemy)
-        self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
-        if self.badGuyPosLR != self.charPos + 40:
-            self.badGuyPosLR -= 1
-            self.display.blit(self.imageBadGuy, (self.badGuyPosLR,250))
+        #     self.enemies.append()
+        self.badguy1.draw(self.display)
+        if self.badguy1.x != self.charPos + 40:
+            self.badguy1.x -= 1
+            self.badguy1.draw(self.display)
 
         #if email is read then the bad guy goes away and score increases
 
