@@ -28,7 +28,7 @@ class Game:
 
     def __init__(self, unread_messages: int):
         pygame.init()
-        pygame.display.set_caption('Email Pirates')
+        pygame.display.set_caption('Email Ahoy!')
 
         self.display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -56,11 +56,14 @@ class Game:
         self.enemies: list[Badguy] = []
         self.count = 1
         self.distance = 160
+        self.moving = True
 
         #objects for the pirate
         self.knife = Image('src/assets/sword_blue.png', 130, 270, 5, 5)
         self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
         self.smoke = Image('src/assets/smoke.png', 170, 280, 3, 3)
+        self.smoke.alpha = 0
+        self.smoke.image.set_alpha(0)
 
         # Player
         self.player = Image('src/assets/pirate8.png', 30, 250, 9, 9)
@@ -102,8 +105,7 @@ class Game:
     def kill_enemies(self, count: int):
         self.score += count
         for _ in range(count):
-            self.knife.draw(self.display)
-            self.smoke.draw(self.display)
+            self.smoke.alpha = 256
             self.enemies.pop(0)
     
     """
@@ -142,9 +144,12 @@ class Game:
     Draws the enemies in the list of enemies
     """
     def draw_enemies(self, speed: int = 0.75):
+        self.moving = False
+
         for enemy in self.enemies:
             if (enemy.x > (self.enemies.index(enemy) + 1) * 160):
                 enemy.x -= speed
+                self.moving = True
             
             enemy.draw(self.display)
 
@@ -194,25 +199,35 @@ class Game:
 
     # main loop for the game
     def game_loop(self):
-        #start of the display
-        self.background.draw(self.display)
+        # Display background
+        self.background.draw(self.display, self.moving)
+
+        # Display clouds
         for cloud in self.lower_clouds:
             cloud.draw(self.display)
+
         for cloud in self.upper_clouds:
             cloud.draw(self.display)
 
-        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
-        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
+        # Draw text
+        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Doubloons  {self.score}", 10, 10, BLACK)
+        self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 42, BLACK)
         
         bob_offset = math.sin((time.time()) * 10) * 2
 
         self.player.draw_at(self.display, 0, bob_offset)
         self.hat.draw_at(self.display, 7, bob_offset)
+        self.knife.draw_at(self.display, 0, bob_offset)
 
         # Draw enemies
         self.draw_enemies()
-        self.knife.draw(self.display)
+
+        # Draw smoke
         self.smoke.draw(self.display)
+        self.smoke.image.set_alpha(self.smoke.alpha)
+
+        if 0 < self.smoke.alpha:    
+            self.smoke.alpha -= 10
         
         # move clouds   
         self.move_upper_clouds()
