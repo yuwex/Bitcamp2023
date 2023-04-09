@@ -57,7 +57,10 @@ class Game:
         self.count = 1
         self.distance = 160
 
+        #objects for the pirate
         self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
+        self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
+        self.smoke = Image('src/assets/smoke.png', 170, 280, 7, 7)
 
         # Player
         self.player = Image('src/assets/pirate8.png', 30, 250, 9, 9)
@@ -70,8 +73,12 @@ class Game:
         self.background = Background(0.75)
 
         # clouds
-        self.clouds: list[Image] = []
-        self.initialize_clouds()
+        self.upper_clouds: list[Image] = []
+        self.lower_clouds: list[Image] = []
+
+        self.initialize_upper_clouds()
+        self.initialize_lower_clouds()
+
 
     """
     Handles a game update with the number of read and unread
@@ -89,12 +96,20 @@ class Game:
         if count > 0:
             self.new_enemies(count)
 
+    """
+    Removes an enemy from the list of enemies and takes them off the screen
+    """
     def kill_enemies(self, count: int):
         self.score += count
         for _ in range(count):
             self.knife.draw(self.display)
+            self.smoke.draw(self.display)
             self.enemies.pop(0)
     
+    """
+    Adds enemies to the list of enemies and puts them in the line on 
+    the screen
+    """
     def new_enemies(self, count: int):
         # When email comes in, spawn a new bad guy
 
@@ -104,7 +119,10 @@ class Game:
             'src/assets/protagonist_blue.png',
             'src/assets/protagonist_red.png',
             'src/assets/protagonist_yellow.png',
-            'src/assets/skeleton.png'
+            'src/assets/skeleton.png',
+            'src/assets/pirate3.png',
+            'src/assets/pirate4.png',
+            'src/assets/pirate4.png'
         ]
 
         for _ in range(count):
@@ -113,12 +131,16 @@ class Game:
 
             costume = random.choice(costumes)
 
+            #if a skeleton is added to the list it needs to be repositioned
             if "skeleton" in costume:
                 x_offset = 20
 
             guy = Badguy(costume, x_offset, y_offset)
             self.enemies.append(guy)
 
+    """
+    Draws the enemies in the list of enemies
+    """
     def draw_enemies(self, speed: int = 0.75):
         for enemy in self.enemies:
             if (enemy.x > (self.enemies.index(enemy) + 1) * 160):
@@ -126,7 +148,9 @@ class Game:
             
             enemy.draw(self.display)
 
-
+    """
+    Used to draw messages on screen
+    """
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
         font = pygame.font.Font(font_name, size)
@@ -137,25 +161,46 @@ class Game:
         # Display Surface object on the screen
         self.display.blit(surface, (x, y))
 
-    def draw_rect(self, color: tuple, x: int, y: int, length: int = 10, width: int = 10):
-        # Draw rectangle object on the screen
-        pygame.draw.rect(self.display, color, (x, y, length, width))
-
-    def initialize_clouds(self):
-        for i in range (random.randint(3,8)):
+    """
+    Creates clouds for the screen background
+    """
+    def initialize_lower_clouds(self):
+        for i in range (random.randint(2,4)):
             cloud_num = random.randint(1,8)
-            x_value = random.randint(0,600)
-            y_value = random.randint(0,205)
+            x_value = random.randint(-100,1200)
+            y_value = random.randint(100,205)
             size_multiplier = random.randint(5,9)
+            self.lower_clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
+        
+    def initialize_upper_clouds(self):
+        for i in range (random.randint(2,4)):
+            cloud_num = random.randint(1,8)
+            x_value = random.randint(-100,1200)
+            y_value = random.randint(0,100)
+            size_multiplier = random.randint(5,9)
+            self.upper_clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
 
-            self.clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
+    def move_upper_clouds(self):
+        for cloud in self.upper_clouds:
+            cloud.x -= 0.2
+            if cloud.x <= -450:
+                cloud.x = 1200
+
+    def move_lower_clouds(self):
+        for cloud in self.lower_clouds:
+            cloud.x -= 0.4
+            if cloud.x <= -450:
+                cloud.x = 1200
 
     # main loop for the game
     def game_loop(self):
         #start of the display
-        self.background.draw(self.display, len(self.enemies) > 0)
-        for x in self.clouds:
-            x.draw(self.display)
+        self.background.draw(self.display)
+        for cloud in self.lower_clouds:
+            cloud.draw(self.display)
+        for cloud in self.upper_clouds:
+            cloud.draw(self.display)
+
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         
@@ -166,6 +211,12 @@ class Game:
 
         # Draw enemies
         self.draw_enemies()
+        self.hat.draw(self.display)
+        self.smoke.draw(self.display)
+        
+        # move clouds   
+        self.move_upper_clouds()
+        self.move_lower_clouds()
 
         # Update Screen
         pygame.display.update() 
