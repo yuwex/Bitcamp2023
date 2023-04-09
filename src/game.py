@@ -87,7 +87,8 @@ class Game:
         self.new_enemies(old_unread - read + self.unread_messages)
 
     def kill_enemies(self, count: int):
-        pass
+        for x in range(count):
+            self.enemies.pop(0)
     
     def new_enemies(self, count: int):
         randomNum = random.randint(1,4)
@@ -111,16 +112,18 @@ class Game:
     def move(self, badguy: Badguy, stop: int):
         badguy.draw(self.display)
         if badguy.x >= stop:
-            badguy.x -= 0.75
+            badguy.x -= 2
 
-    def remove(self, badguy: Badguy):
-        if badguy.x <= self.charPos + 35:
-            self.enemies.pop(0)
+    # def remove(self, badguy: Badguy):
+    #     if badguy.x <= self.distance:
+    #         self.enemies.pop(0)
 
     def line(self):
         self.move(self.enemies[0], self.distance)
         if self.enemies[0].x <= self.distance:
             self.move(self.enemies[1], self.distance*2)
+        if self.enemies[1].x <= self.distance*2:
+            self.move(self.enemies[2], self.distance*3)
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
@@ -155,7 +158,12 @@ class Game:
         # if self.enemies[0].x <= self.charPos + 35:
         #     self.move(self.enemies[1], self.charPos+160)
         self.line()
+        if self.count == 500:
+            self.kill_enemies(1)
 
+        
+        self.count += 1
+        print(len(self.enemies))
         
 
 
