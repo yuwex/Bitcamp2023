@@ -56,6 +56,7 @@ class Game:
         self.count = 1
         self.distance = 160
 
+        #objects for the pirate
         self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
         self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
 
@@ -63,7 +64,6 @@ class Game:
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
         self.imageChar = pygame.transform.scale(self.imageChar, new_size)
-        
         self.charPos = 120
 
         #bad guys
@@ -92,12 +92,19 @@ class Game:
         if count > 0:
             self.new_enemies(count)
 
+    """
+    Removes an enemy from the list of enemies and takes them off the screen
+    """
     def kill_enemies(self, count: int):
         self.score += count
         for _ in range(count):
             self.knife.draw(self.display)
             self.enemies.pop(0)
     
+    """
+    Adds enemies to the list of enemies and puts them in the line on 
+    the screen
+    """
     def new_enemies(self, count: int):
         # When email comes in, spawn a new bad guy
 
@@ -119,12 +126,16 @@ class Game:
             costume = random.choice(costumes)
             guy = Badguy(costume)
 
+            #if a skeleton is added to the list it needs to be repositioned
             if "skeleton" in costume:
                 guy.y += 20
             guy.x += offset
 
             self.enemies.append(guy)
 
+    """
+    Draws the enemies in the list of enemies
+    """
     def draw_enemies(self, speed: int = 0.75):
         for enemy in self.enemies:
             if (enemy.x > (self.enemies.index(enemy) + 1) * 160):
@@ -132,7 +143,9 @@ class Game:
 
             enemy.draw(self.display)
 
-
+    """
+    Used to draw messages on screen
+    """
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
         font = pygame.font.Font(font_name, size)
@@ -143,10 +156,9 @@ class Game:
         # Display Surface object on the screen
         self.display.blit(surface, (x, y))
 
-    def draw_rect(self, color: tuple, x: int, y: int, length: int = 10, width: int = 10):
-        # Draw rectangle object on the screen
-        pygame.draw.rect(self.display, color, (x, y, length, width))
-
+    """
+    Creates clouds for the screen background
+    """
     def initialize_clouds(self):
         for i in range (random.randint(3,8)):
             cloud_num = random.randint(1,8)
