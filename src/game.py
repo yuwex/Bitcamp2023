@@ -140,14 +140,14 @@ class Game:
         ]
 
         for _ in range(count):
-            y_offset = len(self.enemies) * 160
-            x_offset = 0
+            x_offset = len(self.enemies) * 160
+            y_offset = 0
 
             costume = random.choice(costumes)
 
             #if a skeleton is added to the list it needs to be repositioned
             if "skeleton" in costume:
-                x_offset = 20
+                y_offset = 20
 
             guy = Badguy(costume, x_offset, y_offset)
             self.enemies.append(guy)
