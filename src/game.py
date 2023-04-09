@@ -60,7 +60,7 @@ class Game:
         #objects for the pirate
         self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
         self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
-        self.smoke = Image('src/assets/smoke.png', 170, 280, 7, 7)
+        self.smoke = Image('src/assets/smoke.png', 170, 280, 3, 3)
 
         # Player
         self.player = Image('src/assets/pirate8.png', 30, 250, 9, 9)
