@@ -52,7 +52,7 @@ class Game:
         self.left = 590
         self.color = RED
         self.score = 0
-        self.enemies = []
+        self.enemies: list[Badguy] = []
         self.count = 1
         self.distance = 160
 
@@ -91,39 +91,30 @@ class Game:
             self.enemies.pop(0)
     
     def new_enemies(self, count: int):
-        randomNum = random.randint(1,4)
-        #if an email comes in, spawn a new bad guy
-        for x in range(count):
-            if randomNum == 1:
-                self.enemies.append(self.badguy1)
-                randomNum += 1
-            elif randomNum == 2:
-                self.enemies.append(self.badguy2)
-                randomNum += 1
-            elif randomNum == 3:
-                self.enemies.append(self.badguy3)
-                randomNum += 1
-            elif randomNum == 4:
-                self.enemies.append(self.badguy4)
-                randomNum += 1
-            if randomNum > 4:
-                randomNum = 1
+        # When email comes in, spawn a new bad guy
 
-    def move(self, badguy: Badguy, stop: int):
-        badguy.draw(self.display)
-        if badguy.x >= stop:
-            badguy.x -= 2
+        # Possible Bad Guy Costumes
+        costumes = [
+            'src/assets/protagonist_green.png',
+            'src/assets/protagonist_blue.png',
+            'src/assets/protagonist_red.png',
+            'src/assets/protagonist_yellow.png'
+        ]
 
-    # def remove(self, badguy: Badguy):
-    #     if badguy.x <= self.distance:
-    #         self.enemies.pop(0)
+        for _ in range(count):
+            offset = len(self.enemies) * 160
+            guy = Badguy(random.choice(costumes))
+            guy.x += offset
 
-    def line(self):
-        self.move(self.enemies[0], self.distance)
-        if self.enemies[0].x <= self.distance:
-            self.move(self.enemies[1], self.distance*2)
-        if self.enemies[1].x <= self.distance*2:
-            self.move(self.enemies[2], self.distance*3)
+            self.enemies.append(guy)
+
+    def draw_enemies(self, speed: int = 0.75):
+        for enemy in self.enemies:
+            if (enemy.x > (self.enemies.index(enemy) + 1) * 160):
+                enemy.x -= speed
+
+            enemy.draw(self.display)  
+
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
@@ -164,18 +155,9 @@ class Game:
         self.display.blit(self.imageChar, (30, 250))
         self.draw_clouds()
 
-
-        # self.move(self.enemies[0], self.charPos+35)
-        # if self.enemies[0].x <= self.charPos + 35:
-        #     self.move(self.enemies[1], self.charPos+160)
-        self.line()
-        if self.count == 500:
-            self.kill_enemies(1)
-
-        
-        self.count += 1
-        print(len(self.enemies))
-        
+        # Draw enemies
+        self.draw_enemies()
+            
 
 
         # Update Screen
