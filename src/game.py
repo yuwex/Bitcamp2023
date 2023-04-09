@@ -121,6 +121,9 @@ class Game:
         # Draw rectangle object on the screen
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
+    def draw_clouds(self):
+        self.display.blit(carImg, (x,y))
+
     # main loop for the game
     def game_loop(self):
         #start of the display
