@@ -4,8 +4,8 @@ A class for handling game mechanics
 import pygame
 import time
 import os
-import random
 from badguy import Badguy
+import random
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -49,6 +49,7 @@ class Game:
         self.color = RED
         self.score = 0
         self.enemies = []
+        self.count = 1
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -81,8 +82,7 @@ class Game:
         self.new_enemies(old_unread - read + self.unread_messages)
 
     def kill_enemies(self, count: int):
-        #removes the amount of enemies from the list given as count
-        self.enemies = self.enemies[count:]
+        pass
     
     def new_enemies(self, count: int):
         randomNum = random.randint(1,4)
@@ -127,7 +127,11 @@ class Game:
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
     def draw_clouds(self):
-        self.display.blit(carImg, (x,y))
+        cloud_num = random.randint(1,8)
+        height = random.randint(0,205)
+# "src/assets/landscape_parts/clouds" + cloud_num
+# (300,height)
+        self.display.blit(self, )
 
     # main loop for the game
     def game_loop(self):
