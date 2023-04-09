@@ -48,6 +48,7 @@ class Game:
         self.color = RED
         self.score = 0
         self.enemies = []
+        self.count = 1
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -55,8 +56,11 @@ class Game:
         self.imageChar = pygame.transform.scale(self.imageChar, new_size)
         self.charPos = 120
 
-        #bad guy 1
+        #bad guys
         self.badguy1 = Badguy('src/assets/protagonist_green.png')
+        self.badguy2 = Badguy('src/assets/protagonist_blue.png')
+        self.badguy3 = Badguy('src/assets/protagonist_red.png')
+        self.badguy4 = Badguy('src/assets/protagonist_yellow.png')
         
         #landscape
         self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
@@ -104,16 +108,29 @@ class Game:
         self.display.blit(self.imageChar, (30, 250))
 
         #if an email comes in, spawn a new bad guy
-        # for x in self.unread_messages:
-        #     self.enemies.append()
-        self.badguy1.draw(self.display)
-        if self.badguy1.x != self.charPos + 40:
-            self.badguy1.x -= 1
-            self.badguy1.draw(self.display)
+        for x in range(self.unread_messages):
+            if self.count == 1:
+                self.enemies.append(self.badguy1)
+                self.count += 1
+            elif self.count == 2:
+                self.enemies.append(self.badguy2)
+                self.count += 1
+            elif self.count == 3:
+                self.enemies.append(self.badguy3)
+                self.count += 1
+            elif self.count == 4:
+                self.enemies.append(self.badguy4)
+                self.count += 1
+            if self.count > 4:
+                self.count = 1
+
+        self.enemies[0].draw(self.display)
+
+        if self.enemies[0].x != self.charPos + 40:
+            self.enemies[0].x -= 1
 
         #if email is read then the bad guy goes away and score increases
 
-        pygame.display.update()  # updates the screen
 
         # Update Screen
         pygame.display.update() 
