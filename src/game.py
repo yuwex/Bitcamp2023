@@ -59,6 +59,7 @@ class Game:
         #objects for the pirate
         self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
         self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
+        self.smoke = Image('src/assets/smoke.png', 170, 280, 7, 7)
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -103,6 +104,7 @@ class Game:
         self.score += count
         for _ in range(count):
             self.knife.draw(self.display)
+            self.smoke.draw(self.display)
             self.enemies.pop(0)
     
     """
@@ -207,6 +209,7 @@ class Game:
         # Draw enemies
         self.draw_enemies()
         self.hat.draw(self.display)
+        self.smoke.draw(self.display)
         
         # move clouds   
         self.move_upper_clouds()
