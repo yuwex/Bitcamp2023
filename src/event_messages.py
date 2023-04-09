@@ -19,7 +19,6 @@ class EventMessages:
             # character class messages
             self.on_all_emails_read: list[str] = data['on_all_emails_read']
 
-
             
     def email_response(self, unread: int) -> str:
         return random.choice(self.on_email).format(unread=unread)

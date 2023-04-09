@@ -47,6 +47,7 @@ Images
 * [Wallpaper 2](8-bit-artwork-sky-landscape-clouds-pixel-art-pixels-wallpaper-uvtkj)
 * [Clouds](http://pixelartmaker.com/art/281303a9bbc5eb8)
 * [Smoke](https://www.pinterest.com.mx/pin/662944007653541905/)
+* [Parrot] (https://www.istockphoto.com/vector/parrot-pixel-icon-pixel-art-old-school-computer-graphic-8-bit-video-game-game-assets-gm941374558-257301971)
 
 Font
 * [Wayfarer's Toybox](https://www.fontspace.com/wayfarers-toy-box-font-f40851)
