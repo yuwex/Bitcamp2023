@@ -2,7 +2,7 @@ from image import Image
 import pygame
 
 GROUND = "src/assets/landscape/grass.png"
-SKY = "src/assets/landscape/grass.png"
+SKY = "src/assets/landscape/sky.png"
 
 class Background:
 
