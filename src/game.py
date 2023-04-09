@@ -204,14 +204,13 @@ class Game:
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         
-        self.player.draw_at(self.display, 0, math.sin((time.time()) * 10) * 2)
-        
-        # self.display.blit(self.imageChar, (30, 250))
-        # self.initialize_clouds()
+        bob_offset = math.sin((time.time()) * 10) * 2
+
+        self.player.draw_at(self.display, 0, bob_offset)
+        self.hat.draw_at(self.display, 7, bob_offset)
 
         # Draw enemies
         self.draw_enemies()
-        self.hat.draw(self.display)
         self.smoke.draw(self.display)
         
         # move clouds   
