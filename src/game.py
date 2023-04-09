@@ -213,10 +213,14 @@ class Game:
        
 
     def move_polly(self):
-        while self.polly.x < 600:
-            self.polly.x += 0.2
-            if self.polly.x > -750:
-                self.polly.x = -150
+        
+        if len(self.scrollers) < 1:
+            self.polly.x = -100
+            self.polly.y = 100
+        else:
+            self.polly.x = self.scrollers[0].x - 45
+            self.polly.draw_at(self.display,0,math.sin((time.time()) * 10) * 10)   
+
 
     def handle_scrollers(self):
 
@@ -269,8 +273,7 @@ class Game:
         self.move_lower_clouds()
 
         # move & show parrot
-        self.polly.draw(self.display)
-        # self.move_polly()
+        self.move_polly()
 
         # Update Screen
         pygame.display.update() 
