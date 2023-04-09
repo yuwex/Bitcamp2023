@@ -4,6 +4,7 @@ A class for handling game mechanics
 import os
 import random
 import time
+import math
 
 import pygame
 
@@ -58,11 +59,9 @@ class Game:
 
         self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
 
-        #character
-        self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
-        new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
-        self.imageChar = pygame.transform.scale(self.imageChar, new_size)
-        self.charPos = 120
+        # Player
+        self.player = Image('src/assets/pirate8.png', 30, 250, 9, 9)
+        self.player.image = pygame.transform.flip(self.player.image, True, False)
 
         #bad guys
         self.new_enemies(self.unread_messages)
@@ -109,22 +108,22 @@ class Game:
         ]
 
         for _ in range(count):
-            offset = len(self.enemies) * 160
+            y_offset = len(self.enemies) * 160
+            x_offset = 0
 
             costume = random.choice(costumes)
-            guy = Badguy(costume)
 
             if "skeleton" in costume:
-                guy.y += 20
-            guy.x += offset
+                x_offset = 20
 
+            guy = Badguy(costume, x_offset, y_offset)
             self.enemies.append(guy)
 
     def draw_enemies(self, speed: int = 0.75):
         for enemy in self.enemies:
             if (enemy.x > (self.enemies.index(enemy) + 1) * 160):
                 enemy.x -= speed
-
+            
             enemy.draw(self.display)
 
 
@@ -159,7 +158,10 @@ class Game:
             x.draw(self.display)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
-        self.display.blit(self.imageChar, (30, 250))
+        
+        self.player.draw_at(self.display, 0, math.sin((time.time()) * 10) * 2)
+        
+        # self.display.blit(self.imageChar, (30, 250))
         # self.initialize_clouds()
 
         # Draw enemies
