@@ -85,6 +85,7 @@ class Game:
 
         # parrot
         self.polly =  Image("src/assets/parrot.png", 100, 100, 1, 1)
+        self.polly.image = pygame.transform.flip(self.polly.image, True, False)
 
         self.initialize_upper_clouds()
         self.initialize_lower_clouds()
@@ -115,6 +116,7 @@ class Game:
     def kill_enemies(self, count: int):
         self.score += count
         for _ in range(count):
+            self.event_messages.read_response()
             self.smoke.alpha = 256
             self.enemies.pop(0)
     
