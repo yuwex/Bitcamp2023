@@ -50,6 +50,7 @@ class Game:
         self.score = 0
         self.enemies = []
         self.count = 1
+        self.distance = 160
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -103,9 +104,9 @@ class Game:
             if randomNum > 4:
                 randomNum = 1
 
-    def move(self, badguy: Badguy):
+    def move(self, badguy: Badguy, stop: int):
         badguy.draw(self.display)
-        if badguy.x >= self.charPos + 35:
+        if badguy.x >= stop:
             badguy.x -= 0.75
 
     def remove(self, badguy: Badguy):
@@ -113,8 +114,9 @@ class Game:
             self.enemies.pop(0)
 
     def line(self):
-        for x in self.enemies:
-            self.move(x)
+        self.move(self.enemies[0], self.distance)
+        if self.enemies[0].x <= self.distance:
+            self.move(self.enemies[1], self.distance*2)
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
@@ -145,9 +147,10 @@ class Game:
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
 
-        self.move(self.enemies[0])
-        if self.enemies[0].x <= self.charPos:
-            self.move(self.enemies[1])
+        # self.move(self.enemies[0], self.charPos+35)
+        # if self.enemies[0].x <= self.charPos + 35:
+        #     self.move(self.enemies[1], self.charPos+160)
+        self.line()
 
         
 
