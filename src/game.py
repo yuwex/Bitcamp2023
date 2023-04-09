@@ -5,6 +5,7 @@ import pygame
 import time
 import os
 from badguy import Badguy
+import random
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -100,7 +101,11 @@ class Game:
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
     def draw_clouds(self):
-        self.display.blit(carImg, (x,y))
+        cloud_num = random.randint(1,8)
+        height = random.randint(0,205)
+# "src/assets/landscape_parts/clouds" + cloud_num
+# (300,height)
+        self.display.blit(self, )
 
     # main loop for the game
     def game_loop(self):
