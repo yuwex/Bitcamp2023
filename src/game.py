@@ -1,11 +1,15 @@
 """
 A class for handling game mechanics
 """
-import pygame
-import time
 import os
-from badguy import Badguy
 import random
+import time
+
+import pygame
+
+from badguy import Badguy
+from image import Image
+from background import Background
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -66,7 +70,7 @@ class Game:
         self.new_enemies(5)
 
         #landscape
-        self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
+        self.background = Background(0.75)
 
     """
     Handles a game update with the number of read and unread
@@ -136,7 +140,7 @@ class Game:
     # main loop for the game
     def game_loop(self):
         #start of the display
-        self.display.blit(self.image, (0, 0))
+        self.background.draw(self.display)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
