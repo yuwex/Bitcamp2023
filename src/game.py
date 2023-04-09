@@ -137,12 +137,12 @@ class Game:
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
     def initialize_clouds(self):
-        for i in range (random.randint(1,5)):
+        for i in range (random.randint(3,8)):
             cloud_num = random.randint(1,8)
-            x_value = random.randint(100,500)
+            x_value = random.randint(0,600)
             y_value = random.randint(0,205)
+            size_multiplier = random.randint(5,9)
 
-            size_multiplier = random.randint(7,11)
             self.clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
 
     # main loop for the game
