@@ -3,6 +3,7 @@ A class for handling game mechanics
 """
 import os
 import random
+<<<<<<< Updated upstream
 import time
 
 import pygame
@@ -10,6 +11,9 @@ import pygame
 from badguy import Badguy
 from image import Image
 from background import Background
+=======
+from image import Image
+>>>>>>> Stashed changes
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -54,6 +58,7 @@ class Game:
         self.score = 0
         self.enemies = []
         self.count = 1
+        self.distance = 160
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -107,9 +112,9 @@ class Game:
             if randomNum > 4:
                 randomNum = 1
 
-    def move(self, badguy: Badguy):
+    def move(self, badguy: Badguy, stop: int):
         badguy.draw(self.display)
-        if badguy.x >= self.charPos + 35:
+        if badguy.x >= stop:
             badguy.x -= 0.75
 
     def remove(self, badguy: Badguy):
@@ -117,8 +122,9 @@ class Game:
             self.enemies.pop(0)
 
     def line(self):
-        for x in self.enemies:
-            self.move(x)
+        self.move(self.enemies[0], self.distance)
+        if self.enemies[0].x <= self.distance:
+            self.move(self.enemies[1], self.distance*2)
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
@@ -135,11 +141,20 @@ class Game:
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
     def draw_clouds(self):
-        cloud_num = random.randint(1,8)
-        height = random.randint(0,205)
-# "src/assets/landscape_parts/clouds" + cloud_num
-# (300,height)
-        self.display.blit(self, )
+
+        clouds = []
+
+        for i in range (random.randint(1,5)):
+            cloud_num = random.randint(1,8)
+            x_value = random.randint(100,500)
+            y_value = random.randint(0,205)
+
+            size_multiplier = random.randint(7,11)
+            clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
+
+        for x in clouds:
+            x.draw(self.display)
+
 
     # main loop for the game
     def game_loop(self):
@@ -148,10 +163,13 @@ class Game:
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
+        self.draw_clouds()
 
-        self.move(self.enemies[0])
-        if self.enemies[0].x <= self.charPos:
-            self.move(self.enemies[1])
+
+        # self.move(self.enemies[0], self.charPos+35)
+        # if self.enemies[0].x <= self.charPos + 35:
+        #     self.move(self.enemies[1], self.charPos+160)
+        self.line()
 
         
 
