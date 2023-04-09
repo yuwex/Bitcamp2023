@@ -11,3 +11,6 @@ class Image:
     
     def draw(self, surface: pygame.Surface):
         surface.blit(self.image, (self.x, self.y))
+    
+    def draw_at(self, surface: pygame.Surface, x_offset: int, y_offset: int):
+        surface.blit(self.image, (self.x + x_offset, self.y + y_offset))
