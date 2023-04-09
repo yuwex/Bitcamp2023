@@ -73,6 +73,10 @@ class Game:
         #landscape
         self.background = Background(0.75)
 
+        # clouds
+        self.clouds: list[Image] = []
+        self.initialize_clouds()
+
     """
     Handles a game update with the number of read and unread
     emails since the last time the GameManager was polled
@@ -139,30 +143,25 @@ class Game:
         # Draw rectangle object on the screen
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
-    def draw_clouds(self):
-
-        clouds = []
-
+    def initialize_clouds(self):
         for i in range (random.randint(1,5)):
             cloud_num = random.randint(1,8)
             x_value = random.randint(100,500)
             y_value = random.randint(0,205)
 
             size_multiplier = random.randint(7,11)
-            clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
-
-        for x in clouds:
-            x.draw(self.display)
-
+            self.clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
 
     # main loop for the game
     def game_loop(self):
         #start of the display
         self.background.draw(self.display)
+        for x in self.clouds:
+            x.draw(self.display)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
-        self.draw_clouds()
+        # self.initialize_clouds()
 
 
         # self.move(self.enemies[0], self.charPos+35)
