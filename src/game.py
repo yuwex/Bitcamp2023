@@ -58,7 +58,7 @@ class Game:
         self.distance = 160
 
         #objects for the pirate
-        self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
+        self.knife = Image('src/assets/sword_blue.png', 130, 270, 5, 5)
         self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
         self.smoke = Image('src/assets/smoke.png', 170, 280, 3, 3)
 
@@ -212,6 +212,7 @@ class Game:
         # Draw enemies
         self.draw_enemies()
         self.hat.draw(self.display)
+        self.knife.draw(self.display)
         self.smoke.draw(self.display)
         
         # move clouds   
