@@ -3,7 +3,6 @@ A class for handling game mechanics
 """
 import os
 import random
-<<<<<<< Updated upstream
 import time
 
 import pygame
@@ -11,9 +10,6 @@ import pygame
 from badguy import Badguy
 from image import Image
 from background import Background
-=======
-from image import Image
->>>>>>> Stashed changes
 
 #colors for the animation
 BLACK = (0, 0, 0)
