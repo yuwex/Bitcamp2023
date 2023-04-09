@@ -20,11 +20,12 @@ class Background:
         self.images.extend(self.ground)
         self.speed = speed
 
-    def draw(self, surface: pygame.Surface):
+    def draw(self, surface: pygame.Surface, moving: bool = True):
         for image in self.images:
             image.draw(surface)
         
-        for img in self.ground:
-            img.x -= self.speed
-            if img.x <= -600:
-                img.x = 600
+        if moving:
+            for img in self.ground:
+                img.x -= self.speed
+                if img.x <= -600:
+                    img.x = 600
