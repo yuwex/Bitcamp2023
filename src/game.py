@@ -62,6 +62,8 @@ class Game:
         self.badguy3 = Badguy('src/assets/protagonist_red.png')
         self.badguy4 = Badguy('src/assets/protagonist_yellow.png')
         
+        self.new_enemies(5)
+
         #landscape
         self.image = pygame.image.load(os.path.join('src/Assets/landscape.jpg'))
 
@@ -101,11 +103,14 @@ class Game:
             if randomNum > 4:
                 randomNum = 1
 
-        self.enemies[0].draw(self.display)
+    def move(self, badguy: Badguy):
+        badguy.draw(self.display)
+        if badguy.x >= self.charPos + 35:
+            badguy.x -= 0.75
 
-        if self.enemies[0].x != self.charPos + 40:
-            self.enemies[0].x -= 1
-
+    def remove(self, badguy: Badguy):
+        if badguy.x <= self.charPos + 35:
+            self.enemies.pop(0)
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
@@ -131,6 +136,9 @@ class Game:
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
+
+        self.move(self.enemies[0])
+        self.remove(self.enemies[0])
 
         # Update Screen
         pygame.display.update() 
