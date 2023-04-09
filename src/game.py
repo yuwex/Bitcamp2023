@@ -56,6 +56,8 @@ class Game:
         self.count = 1
         self.distance = 160
 
+        self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
+
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
@@ -67,7 +69,6 @@ class Game:
         self.badguy2 = Badguy('src/assets/protagonist_blue.png')
         self.badguy3 = Badguy('src/assets/protagonist_red.png')
         self.badguy4 = Badguy('src/assets/protagonist_yellow.png')
-        
         self.new_enemies(5)
 
         #landscape
@@ -92,6 +93,7 @@ class Game:
 
     def kill_enemies(self, count: int):
         for x in range(count):
+            self.knife.draw(self.display)
             self.enemies.pop(0)
     
     def new_enemies(self, count: int):
@@ -156,8 +158,7 @@ class Game:
 
         # Draw enemies
         self.draw_enemies()
-            
-
+        self.kill_enemies(1)
 
         # Update Screen
         pygame.display.update() 
