@@ -56,19 +56,18 @@ class Game:
         self.count = 1
         self.distance = 160
 
+        self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
+        self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
+
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
         self.imageChar = pygame.transform.scale(self.imageChar, new_size)
+        
         self.charPos = 120
 
         #bad guys
-        self.badguy1 = Badguy('src/assets/protagonist_green.png')
-        self.badguy2 = Badguy('src/assets/protagonist_blue.png')
-        self.badguy3 = Badguy('src/assets/protagonist_red.png')
-        self.badguy4 = Badguy('src/assets/protagonist_yellow.png')
-        
-        self.new_enemies(5)
+        self.new_enemies(self.unread_messages)
 
         #landscape
         self.background = Background(0.75)
@@ -92,10 +91,15 @@ class Game:
         self.unread_messages = unread
         
         self.kill_enemies(read)
-        self.new_enemies(old_unread - read + self.unread_messages)
+        
+        count = self.unread_messages - old_unread - read
+        if count > 0:
+            self.new_enemies(count)
 
     def kill_enemies(self, count: int):
-        for x in range(count):
+        self.score += count
+        for _ in range(count):
+            self.knife.draw(self.display)
             self.enemies.pop(0)
     
     def new_enemies(self, count: int):
@@ -106,12 +110,21 @@ class Game:
             'src/assets/protagonist_green.png',
             'src/assets/protagonist_blue.png',
             'src/assets/protagonist_red.png',
-            'src/assets/protagonist_yellow.png'
+            'src/assets/protagonist_yellow.png',
+            'src/assets/skeleton.png',
+            'src/assets/pirate3.png',
+            'src/assets/pirate4.png',
+            'src/assets/pirate4.png'
         ]
 
         for _ in range(count):
             offset = len(self.enemies) * 160
-            guy = Badguy(random.choice(costumes))
+
+            costume = random.choice(costumes)
+            guy = Badguy(costume)
+
+            if "skeleton" in costume:
+                guy.y += 20
             guy.x += offset
 
             self.enemies.append(guy)
@@ -121,7 +134,7 @@ class Game:
             if (enemy.x > (self.enemies.index(enemy) + 1) * 160):
                 enemy.x -= speed
 
-            enemy.draw(self.display)  
+            enemy.draw(self.display)
 
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
@@ -181,6 +194,7 @@ class Game:
 
         # Draw enemies
         self.draw_enemies()
+        self.hat.draw(self.display)
         
         # move clouds   
         self.move_upper_clouds()
