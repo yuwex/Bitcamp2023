@@ -112,6 +112,10 @@ class Game:
         if badguy.x <= self.charPos + 35:
             self.enemies.pop(0)
 
+    def line(self):
+        for x in self.enemies:
+            self.move(x)
+
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
         # Create a new Font object
         font = pygame.font.Font(font_name, size)
@@ -142,7 +146,11 @@ class Game:
         self.display.blit(self.imageChar, (30, 250))
 
         self.move(self.enemies[0])
-        self.remove(self.enemies[0])
+        if self.enemies[0].x <= self.charPos:
+            self.move(self.enemies[1])
+
+        
+
 
         # Update Screen
         pygame.display.update() 
