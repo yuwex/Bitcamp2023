@@ -56,6 +56,8 @@ class Game:
         self.count = 1
         self.distance = 160
 
+        self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
+
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
@@ -91,6 +93,7 @@ class Game:
     def kill_enemies(self, count: int):
         self.score += count
         for _ in range(count):
+            self.knife.draw(self.display)
             self.enemies.pop(0)
     
     def new_enemies(self, count: int):
@@ -140,12 +143,12 @@ class Game:
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
     def initialize_clouds(self):
-        for i in range (random.randint(1,5)):
+        for i in range (random.randint(3,8)):
             cloud_num = random.randint(1,8)
-            x_value = random.randint(100,500)
+            x_value = random.randint(0,600)
             y_value = random.randint(0,205)
+            size_multiplier = random.randint(5,9)
 
-            size_multiplier = random.randint(7,11)
             self.clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
 
     # main loop for the game
@@ -160,7 +163,7 @@ class Game:
         # self.initialize_clouds()
 
         # Draw enemies
-        self.draw_enemies(5)
+        self.draw_enemies()
 
         # Update Screen
         pygame.display.update() 
