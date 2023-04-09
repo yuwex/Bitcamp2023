@@ -1,17 +1,20 @@
 from image import Image
 import pygame
 
+GROUND = "src/assets/landscape/grass.png"
+SKY = "src/assets/landscape/grass.png"
+
 class Background:
 
     def __init__(self, speed = 1):
 
         self.ground = [
-            Image("src/assets/landscape/grass.png", 600, 0),
-            Image("src/assets/landscape/grass.png", 0, 0)
+            Image(GROUND, 600, 0),
+            Image(GROUND, 0, 0)
         ]
 
         self.images = [
-            Image("src/assets/landscape/sky.png", 0, 0),
+            Image(SKY, 0, 0),
         ]
 
         self.images.extend(self.ground)
