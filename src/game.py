@@ -9,8 +9,10 @@ import math
 import pygame
 
 from badguy import Badguy
+from event_messages import EventMessages
 from image import Image
 from background import Background
+from surface_wrapper import SurfaceWrapper
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -35,6 +37,9 @@ class Game:
         # Initialize unread messages
         self.unread_messages = unread_messages
         self.read_messages = 0
+
+        self.event_messages = EventMessages("src/event_messages.json")
+        self.scrollers: list[SurfaceWrapper] = []
     
     def start(self):
         # Call before_start before starting
@@ -82,6 +87,9 @@ class Game:
         self.initialize_upper_clouds()
         self.initialize_lower_clouds()
 
+        # Testing
+        self.flag = False
+        self.i = 0
 
     """
     Handles a game update with the number of read and unread
@@ -114,6 +122,8 @@ class Game:
     """
     def new_enemies(self, count: int):
         # When email comes in, spawn a new bad guy
+        if count != 0:
+            self.new_scroller(self.event_messages.email_response(count))
 
         # Possible Bad Guy Costumes
         costumes = [
@@ -153,18 +163,19 @@ class Game:
             
             enemy.draw(self.display)
 
+    def generate_text_surface(self, text: str, size: int, font_name: str = "src/assets/WayfarersToyBoxRegular.ttf", color: tuple = BLACK) -> pygame.Surface:
+        # Create a new Font object
+        font = pygame.font.Font(font_name, size)
+
+        # Display Surface object on the screen
+        return font.render(text, True, color)
+
+
     """
     Used to draw messages on screen
     """
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
-        # Create a new Font object
-        font = pygame.font.Font(font_name, size)
-
-        # Create a new Surface Object
-        surface = font.render(text, True, color)
-
-        # Display Surface object on the screen
-        self.display.blit(surface, (x, y))
+        self.display.blit(self.generate_text_surface(text, size, font_name, color), (x, y))
 
     """
     Creates clouds for the screen background
@@ -197,6 +208,17 @@ class Game:
             if cloud.x <= -450:
                 cloud.x = 1200
 
+    def handle_scrollers(self):
+
+        for s in self.scrollers:
+            s.draw_at(self.display, math.sin((time.time()) * 10) * 5)
+            s.x -= 5
+            if s.x < -s.surface.get_width():
+                self.scrollers.remove(s)
+    
+    def new_scroller(self, text: str):
+        self.scrollers.append(SurfaceWrapper(self.generate_text_surface(text, 30), 600, random.randint(60, 205)))
+
     # main loop for the game
     def game_loop(self):
         # Display background
@@ -213,6 +235,9 @@ class Game:
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Doubloons  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 42, BLACK)
         
+        # Draw Scrollers
+        self.handle_scrollers()
+
         bob_offset = math.sin((time.time()) * 10) * 2
 
         self.player.draw_at(self.display, 0, bob_offset)
