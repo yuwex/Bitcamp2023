@@ -4,8 +4,8 @@ A class for handling game mechanics
 import pygame
 import time
 import os
-import random
 from badguy import Badguy
+import random
 
 #colors for the animation
 BLACK = (0, 0, 0)
@@ -49,6 +49,7 @@ class Game:
         self.color = RED
         self.score = 0
         self.enemies = []
+        self.count = 1
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
@@ -79,32 +80,10 @@ class Game:
         self.new_enemies(old_unread - read + self.unread_messages)
 
     def kill_enemies(self, count: int):
-        #removes the amount of enemies from the list given as count
-        self.enemies = self.enemies[count:]
+        pass
     
     def new_enemies(self, count: int):
-        randomNum = random.randint(1,4)
-        #if an email comes in, spawn a new bad guy
-        for x in range(count):
-            if randomNum == 1:
-                self.enemies.append(self.badguy1)
-                randomNum += 1
-            elif randomNum == 2:
-                self.enemies.append(self.badguy2)
-                randomNum += 1
-            elif randomNum == 3:
-                self.enemies.append(self.badguy3)
-                randomNum += 1
-            elif randomNum == 4:
-                self.enemies.append(self.badguy4)
-                randomNum += 1
-            if randomNum > 4:
-                randomNum = 1
-
-        self.enemies[0].draw(self.display)
-
-        if self.enemies[0].x != self.charPos + 40:
-            self.enemies[0].x -= 1
+        pass
 
 
     def draw_text(self, font_name: str, size: int, text: str, x: int, y: int, color: tuple):
@@ -122,7 +101,11 @@ class Game:
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
     def draw_clouds(self):
-        self.display.blit(carImg, (x,y))
+        cloud_num = random.randint(1,8)
+        height = random.randint(0,205)
+# "src/assets/landscape_parts/clouds" + cloud_num
+# (300,height)
+        self.display.blit(self, )
 
     # main loop for the game
     def game_loop(self):
@@ -131,6 +114,31 @@ class Game:
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
+
+        #if an email comes in, spawn a new bad guy
+        for x in range(self.unread_messages):
+            if self.count == 1:
+                self.enemies.append(self.badguy1)
+                self.count += 1
+            elif self.count == 2:
+                self.enemies.append(self.badguy2)
+                self.count += 1
+            elif self.count == 3:
+                self.enemies.append(self.badguy3)
+                self.count += 1
+            elif self.count == 4:
+                self.enemies.append(self.badguy4)
+                self.count += 1
+            if self.count > 4:
+                self.count = 1
+
+        self.enemies[0].draw(self.display)
+
+        if self.enemies[0].x != self.charPos + 40:
+            self.enemies[0].x -= 1
+
+        #if email is read then the bad guy goes away and score increases
+
 
         # Update Screen
         pygame.display.update() 
