@@ -74,8 +74,12 @@ class Game:
         self.background = Background(0.75)
 
         # clouds
-        self.clouds: list[Image] = []
-        self.initialize_clouds()
+        self.upper_clouds: list[Image] = []
+        self.lower_clouds: list[Image] = []
+
+        self.initialize_upper_clouds()
+        self.initialize_lower_clouds()
+
 
     """
     Handles a game update with the number of read and unread
@@ -134,30 +138,53 @@ class Game:
         # Draw rectangle object on the screen
         pygame.draw.rect(self.display, color, (x, y, length, width))
 
-    def initialize_clouds(self):
-        for i in range (random.randint(3,8)):
+    def initialize_lower_clouds(self):
+        for i in range (random.randint(2,4)):
             cloud_num = random.randint(1,8)
-            x_value = random.randint(0,600)
-            y_value = random.randint(0,205)
+            x_value = random.randint(-100,1200)
+            y_value = random.randint(100,205)
             size_multiplier = random.randint(5,9)
+            self.lower_clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
+        
+    def initialize_upper_clouds(self):
+        for i in range (random.randint(2,4)):
+            cloud_num = random.randint(1,8)
+            x_value = random.randint(-100,1200)
+            y_value = random.randint(0,100)
+            size_multiplier = random.randint(5,9)
+            self.upper_clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
 
-            self.clouds.append(Image(f"src/assets/landscape/clouds/clouds{cloud_num}.png", x_value, y_value, size_multiplier, size_multiplier))
+    def move_upper_clouds(self):
+        for cloud in self.upper_clouds:
+            cloud.x -= 0.2
+            if cloud.x <= -450:
+                cloud.x = 1200
+
+    def move_lower_clouds(self):
+        for cloud in self.lower_clouds:
+            cloud.x -= 0.4
+            if cloud.x <= -450:
+                cloud.x = 1200
 
     # main loop for the game
     def game_loop(self):
         #start of the display
         self.background.draw(self.display)
-        for x in self.clouds:
-            x.draw(self.display)
+        for cloud in self.lower_clouds:
+            cloud.draw(self.display)
+        for cloud in self.upper_clouds:
+            cloud.draw(self.display)
+
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 40, f"Score  {self.score}", 10, 10, BLACK)
         self.draw_text("src/assets/WayfarersToyBoxRegular.ttf", 20, f"Enemies  {self.unread_messages}", 10, 70, BLACK)
         self.display.blit(self.imageChar, (30, 250))
-        # self.initialize_clouds()
 
         # Draw enemies
         self.draw_enemies()
-            
-
+        
+        # move clouds   
+        self.move_upper_clouds()
+        self.move_lower_clouds()
 
         # Update Screen
         pygame.display.update() 
