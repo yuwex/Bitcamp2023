@@ -5,7 +5,6 @@ import os
 import random
 import time
 import math
-
 import pygame
 
 from badguy import Badguy
@@ -78,6 +77,9 @@ class Game:
         # clouds
         self.upper_clouds: list[Image] = []
         self.lower_clouds: list[Image] = []
+
+        # parrot
+        self.polly =  Image("src/assets/parrot.png", 100, 100, 1, 1)
 
         self.initialize_upper_clouds()
         self.initialize_lower_clouds()
@@ -169,6 +171,7 @@ class Game:
     """
     Creates clouds for the screen background
     """
+
     def initialize_lower_clouds(self):
         for i in range (random.randint(2,4)):
             cloud_num = random.randint(1,8)
@@ -196,6 +199,13 @@ class Game:
             cloud.x -= 0.4
             if cloud.x <= -450:
                 cloud.x = 1200
+       
+
+    def move_polly(self):
+        while self.polly.x < 600:
+            self.polly.x += 0.2
+            if self.polly.x > -750:
+                self.polly.x = -150
 
     # main loop for the game
     def game_loop(self):
@@ -232,6 +242,10 @@ class Game:
         # move clouds   
         self.move_upper_clouds()
         self.move_lower_clouds()
+
+        # move & show parrot
+        self.polly.draw(self.display)
+        # self.move_polly()
 
         # Update Screen
         pygame.display.update() 
