@@ -57,11 +57,13 @@ class Game:
         self.distance = 160
 
         self.knife = Image('src/assets/sword_blue.png', 120, 270, 5, 5)
+        self.hat = Image('src/assets/HAT.png', 30, 195, 7, 7)
 
         #character
         self.imageChar = pygame.image.load(os.path.join('src/assets/pirate8.png'))
         new_size = (self.imageChar.get_width() * 9, self.imageChar.get_height() * 9)
         self.imageChar = pygame.transform.scale(self.imageChar, new_size)
+        
         self.charPos = 120
 
         #bad guys
@@ -105,7 +107,10 @@ class Game:
             'src/assets/protagonist_blue.png',
             'src/assets/protagonist_red.png',
             'src/assets/protagonist_yellow.png',
-            'src/assets/skeleton.png'
+            'src/assets/skeleton.png',
+            'src/assets/pirate3.png',
+            'src/assets/pirate4.png',
+            'src/assets/pirate4.png'
         ]
 
         for _ in range(count):
@@ -163,7 +168,8 @@ class Game:
         # self.initialize_clouds()
 
         # Draw enemies
-        self.draw_enemies()
+        self.draw_enemies(5)
+        self.hat.draw(self.display)
 
         # Update Screen
         pygame.display.update() 
