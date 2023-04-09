@@ -83,7 +83,7 @@ class Game:
         self.enemies = self.enemies[count:]
     
     def new_enemies(self, count: int):
-        randomNum = random.randint(0,5)
+        randomNum = random.randint(1,4)
         #if an email comes in, spawn a new bad guy
         for x in range(count):
             if randomNum == 1:
