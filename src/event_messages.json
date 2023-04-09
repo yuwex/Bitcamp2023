@@ -1,7 +1,11 @@
 {
     "on_email": [
         "New email ahoy!",
-        "*Squawk* Pirates Approaching! *Squawk*"
+        "*Squawk* Pirates Approaching! *Squawk*",
+        "Arrr, you have {unread} unread emails!",
+        "Aye me hearty! You have {unread} email left to read!",
+        "Arrr, you have one email to read!",
+        "Aye me hearty! You have an email to read!"
     ],
 
     "on_read": [
@@ -30,18 +34,5 @@
         "Blimey! You've read all your emails!",
         "Raise the jolly roger, you have no emails to read!"
     ]
-    ,
-    "on_one_unread": [
-        "Arrr, you have one email to read!",
-        "Aye me hearty! You have one email left to read!"
-    ],
-    "on_multiple_unread": [
-    "Arrr, you have {unread emails count} unread emails!",
-    "Aye me hearty! You have {unread emails count} email left to read!"
-    ]
-
-
-
-
     
 }

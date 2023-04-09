@@ -17,15 +17,12 @@ class EventMessages:
             self.on_sell_success: list[str] = data['on_sell_success']
             
             # character class messages
-            self.on_multiple_unread: list[str] = data['on_multiple_unread']
-            self.on_one_unread: list[str] = data['on_one_unread']
             self.on_all_emails_read: list[str] = data['on_all_emails_read']
-            self.on_one_unread: list[str] = data['on_one_unread']
 
 
             
-    def email_response(self) -> str:
-        return random.choice(self.on_email)
+    def email_response(self, unread: int) -> str:
+        return random.choice(self.on_email).format(unread=unread)
     
     def read_response(self) -> str:
         return random.choice(self.on_read)
@@ -44,10 +41,6 @@ class EventMessages:
     
     def all_emails_read(self) -> str:
         return random.choice(self.on_all_emails_read)
-    def one_unread(self) -> str:
-        return random.choice(self.on_one_unread)
-    def multiple_unread(self) -> str:
-        return random.choice(self.on_multiple_unread)
    
 
 if __name__ == "__main__":
@@ -59,5 +52,3 @@ if __name__ == "__main__":
     print(em.buy_owned())
     print(em.sell_success("Shield", 22))
     print(em.all_emails_read())
-    print(em.one_unread())
-    print(em.multiple_unread())
